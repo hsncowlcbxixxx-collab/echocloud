@@ -1,0 +1,78 @@
+import React, { useState } from "react";
+
+const features = [
+  "DDoS Protection",
+  "Port Forwarding",
+  "Custom Plugins",
+  "Version Installer",
+];
+
+const plans = [
+  { name: "Coal Plan ⛏️", type: "Budget", ram: "2GB DDR4 RAM", cpu: "1vCore CPU", disk: "8GB NVMe SSD", price: "₹49 ~1", color: "bg-gray-700" },
+  { name: "Iron Plan ⛓️", type: "Budget", ram: "4GB DDR4 RAM", cpu: "2vCore CPU", disk: "15GB NVMe SSD", price: "₹89 ~1", color: "bg-gray-600" },
+  { name: "Gold Plan 🥇", type: "Budget", ram: "6GB DDR4 RAM", cpu: "3vCore CPU", disk: "25GB NVMe SSD", price: "₹149 ~1", color: "bg-yellow-600" },
+  { name: "Diamond Plan 💎", type: "Premium", ram: "8GB DDR4 RAM", cpu: "3vCore CPU", disk: "30GB NVMe SSD", price: "₹199 ~1", color: "bg-blue-500" },
+  { name: "Netherite Plan 🪨", type: "Premium", ram: "12GB DDR4 RAM", cpu: "4vCore CPU", disk: "40GB NVMe SSD", price: "₹289 ~1", color: "bg-purple-700" },
+];
+
+export default function FeaturePlans() {
+  const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
+
+  return (
+    <div className="min-h-screen bg-[url('/assets/minecraft-bg.jpg')] bg-cover bg-center py-12">
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-5xl font-bold text-center mb-12 text-yellow-400 drop-shadow-lg">
+          Echo Cloud VPS
+        </h1>
+
+        {!selectedFeature ? (
+          <div>
+            <h2 className="text-3xl text-center mb-8 text-white">Select a Feature</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {features.map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setSelectedFeature(f)}
+                  className="bg-gray-900 p-6 rounded-xl text-white font-bold text-lg hover:scale-105 transition-transform shadow-lg border-4 border-black"
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div>
+            <button
+              onClick={() => setSelectedFeature(null)}
+              className="mb-6 text-yellow-400 font-bold underline hover:text-yellow-300"
+            >
+              ← Back to Features
+            </button>
+
+            <h2 className="text-3xl mb-8 text-center text-white">
+              Plans for: <span className="text-yellow-400">{selectedFeature}</span>
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {plans.map((plan) => (
+                <div
+                  key={plan.name}
+                  className={`${plan.color} rounded-xl p-6 text-white text-center border-4 border-black hover:scale-105 transform transition-transform shadow-lg`}
+                >
+                  <h3 className="text-2xl font-bold mb-4 drop-shadow-md">{plan.name}</h3>
+                  <ul className="mb-4 text-left list-disc list-inside">
+                    <li>{plan.ram}</li>
+                    <li>{plan.cpu}</li>
+                    <li>{plan.disk}</li>
+                  </ul>
+                  <div className="text-2xl font-extrabold text-yellow-300 drop-shadow-md">{plan.price}</div>
+                  <div className="mt-2 text-sm font-semibold text-gray-200">{plan.type}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
